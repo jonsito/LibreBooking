@@ -193,7 +193,7 @@ class Net_LDAP2 extends PEAR
     * @access public
     * @return Net_LDAP2_Error|Net_LDAP2   Net_LDAP2_Error or Net_LDAP2 object
     */
-    public static function connect($config = [])
+    public static function connect($config = [],$dn=null,$pass=null)
     {
         $ldap_check = self::checkLDAPExtension();
         if (self::iserror($ldap_check)) {
@@ -205,7 +205,7 @@ class Net_LDAP2 extends PEAR
         // todo? better errorhandling for setConfig()?
 
         // connect and bind with credentials in config
-        $err = $obj->bind();
+        $err = $obj->bind($dn,$pass);
         if (self::isError($err)) {
             return $err;
         }

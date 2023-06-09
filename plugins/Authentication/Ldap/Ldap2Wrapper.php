@@ -28,11 +28,11 @@ class Ldap2Wrapper
         $this->user = null;
     }
 
-    public function Connect()
+    public function Connect($dn=null,$pass=null)
     {
         Log::Debug('Trying to connect to LDAP');
 
-        $this->ldap = Net_LDAP2::connect($this->options->Ldap2Config());
+        $this->ldap = Net_LDAP2::connect($this->options->Ldap2Config(),$dn,$pass);
         $p = new Pear();
         if ($p->isError($this->ldap)) {
             $message = 'Could not connect to LDAP server. Check your settings in Ldap.config.php : ' . $this->ldap->getMessage();
