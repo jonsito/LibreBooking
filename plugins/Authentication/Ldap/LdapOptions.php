@@ -69,7 +69,8 @@ class LdapOptions
 
     public function BaseDn()
     {
-        return $this->_options[LdapConfig::BASEDN];
+        return $this->GetConfig(LdapConfig::BASEDN);
+        // return $this->_options[LdapConfig::BASEDN];
     }
 
     public function IsLdapDebugOn()
