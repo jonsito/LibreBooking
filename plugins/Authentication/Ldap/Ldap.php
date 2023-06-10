@@ -108,8 +108,10 @@ class Ldap extends Authentication implements IAuthentication
         $this->password = $password;
 
         $username = $this->CleanUsername($username);
-        // PENDING: if binddn/bindpw is provided, do not use username/password
-        $connected = $this->ldap->Connect($username,$password);
+        // JAMC 20230610: check for bind() with username/password instead of anonymous bind
+        if ($this->options->provideUserAsBindDn())
+            $connected = $this->ldap->Connect($username,$password);
+        else $connected = $this->ldap->Connect();
 
         if (!$connected) {
             throw new Exception("Could not connect to LDAP server. Please check your LDAP configuration settings");

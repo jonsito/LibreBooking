@@ -18,3 +18,4 @@ $conf['settings']['attribute.mapping'] = 'sn=sn,givenname=givenname,mail=mail,te
 $conf['settings']['user.id.attribute'] = 'uid';	// the attribute name for user identification
 $conf['settings']['sync.groups'] = 'false';
 $conf['settings']['prevent.clean.username'] = 'false';	// If the username is an email address or contains the domain, clean it
+$conf['settings']['provide.user.as.binddn'] = 'false';	// when binddn & bindpw are empty try to bind() with username/password

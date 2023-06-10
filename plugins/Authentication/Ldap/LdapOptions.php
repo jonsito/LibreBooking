@@ -149,4 +149,11 @@ class LdapOptions
     {
         return !$this->GetConfig(LdapConfig::PREVENT_CLEAN_USERNAME, new BooleanConverter());
     }
+
+    public function provideUserAsBindDn()
+    {
+        if ($this->GetConfig(LdapConfig::BINDDN)) return false;
+        if ($this->GetConfig(LdapConfig::BINDPW)) return false;
+        return $this->GetConfig(LdapConfig::PROVIDE_USER_AS_BINDDN, new BooleanConverter());
+    }
 }

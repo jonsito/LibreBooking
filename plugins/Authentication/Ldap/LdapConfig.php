@@ -18,4 +18,6 @@ class LdapConfig
     public const REQUIRED_GROUP = 'required.group';
     public const SYNC_GROUPS = 'sync.groups';
     public const PREVENT_CLEAN_USERNAME = 'prevent.clean.username';
+
+    public const PROVIDE_USER_AS_BINDDN = 'provide.user.as.binddn';
 }
