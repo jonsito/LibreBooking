@@ -37,7 +37,8 @@ class Ldap2Wrapper
         if ($p->isError($this->ldap)) {
             $message = 'Could not connect to LDAP server. Check your settings in Ldap.config.php : ' . $this->ldap->getMessage();
             Log::Error($message);
-            throw new Exception($message);
+            // throw new Exception($message);
+            return false;
         }
 
         $this->ldap->setOption(LDAP_OPT_REFERRALS, 0);

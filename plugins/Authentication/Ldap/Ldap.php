@@ -112,7 +112,14 @@ class Ldap extends Authentication implements IAuthentication
         if ($this->options->provideUserAsBindDn()) {
             $binddn="uid={$username},{$this->options->BaseDn()}";
             $connected = $this->ldap->Connect($binddn,$password);
-        } else $connected = $this->ldap->Connect();
+            if (!$connected ) {
+                // instead of bind error, just assume to login failure and fallback to database check (if configured)
+                if ($this->options->RetryAgainstDatabase()) {
+                    return $this->authToDecorate->Validate($username, $password);
+                }
+                return false; // no connected & no try database
+            }
+        } else $connected = $this->ldap->Connect(); // try normal bind
 
         if (!$connected) {
             throw new Exception("Could not connect to LDAP server. Please check your LDAP configuration settings");
