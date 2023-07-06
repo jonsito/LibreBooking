@@ -134,6 +134,14 @@ class Ldap2Wrapper
                 return false;
             }
 
+            // JAMC 20230706 comprobamos employeeType,
+            // admitiendo solo (L)aboral o (D)ocente
+            $employeeType=$currentResult->getValue('employeeType');
+            if (strpbrk($employeeType,"LD")===false) {
+                Log::Error('Found user %s is neither Teacher nor Staff', $username);
+                return false;
+            }
+
             if ($loadGroups) {
                 $userGroups = $currentResult->getValue('memberof');
                 $userGroups = array_map('trim', $userGroups);
