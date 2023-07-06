@@ -111,6 +111,8 @@ class Ldap2Wrapper
         if ($loadGroups) {
             $attributes[] = 'memberof';
         }
+        //JAMC 20230706 to handle employeeType
+        $attributes[] = 'employeetype';
 
         Log::Debug('LDAP - Loading user attributes: %s', implode(', ', $attributes));
 
@@ -136,7 +138,7 @@ class Ldap2Wrapper
 
             // JAMC 20230706 comprobamos employeeType,
             // admitiendo solo (L)aboral o (D)ocente
-            $employeeType=$currentResult->getValue('employeeType');
+            $employeeType=$currentResult->getValue('employeetype','single');
             if (strpbrk($employeeType,"LD")===false) {
                 Log::Error('Found user %s is neither Teacher nor Staff', $username);
                 return false;

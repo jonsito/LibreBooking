@@ -49,7 +49,11 @@ class EmailService implements IEmailService
         $replyTo = $emailMessage->ReplyTo();
         $this->phpMailer->addReplyTo($replyTo->Address(), $replyTo->Name());
 
-        $to = $this->ensureArray($emailMessage->To());
+        // JAMC 20230706: hardwired cdc@dit.upm.es as notification email address
+        // note that LibreBooking wants to send mail to every app administrators
+        // $to = $this->ensureArray($emailMessage->To());
+        $to = $this->ensureArray([new EmailAddress("cdc@dit.upm.es","Centro de Calculo Dit-UPM")]);
+
         $toAddresses = new StringBuilder();
         foreach ($to as $address) {
             $toAddresses->Append($address->Address());
